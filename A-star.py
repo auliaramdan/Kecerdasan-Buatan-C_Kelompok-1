@@ -19,7 +19,7 @@ cities={'Oradea':['Zerind', 'Sibiu'],
         'Pitesti':['Rimnicu Vilcea', 'Craiova', 'Bucharest'],
         'Bucharest':['Giurgiu', 'Fagaras', 'Pitesti', 'Urziceni'],
         'Giurgiu':['Bucharest'],
-        'Urziceni':['Vaslui', 'Hirsova'],
+        'Urziceni':['Vaslui', 'Hirsova', 'Bucharest'],
         'Hirsova':['Urziceni', 'Eforie'],
         'Eforie':['Hirsova'],
         'Vaslui':['Urziceni', 'Iasi'],
@@ -67,3 +67,39 @@ heuristic={'Arad':366,
            'Urziceni':80,
            'Vaslui':199,
            'Zerind':374}
+
+
+path = []
+f = []
+def AstarUtil(city, prev):
+    path.append(city)
+    if(city == 'Bucharest') :
+        return
+    else:
+        index = -1
+        q = 10000
+        for i in range (len(cities[city])):
+            if(cities[city][i] in path):
+                continue
+            if(q > cityDist[city][i] + prev + heuristic[cities[city][i]]):
+                index = i
+                q = cityDist[city][i] + prev + heuristic[cities[city][i]]
+    f.append(q)
+    AstarUtil(cities[city][index], prev + cityDist[city][index])
+    return
+    
+def printPath(city):
+    print("Path:\n")
+    print(city)
+    print(heuristic[city])
+    print("\n")
+    for i in range(len(path) - 1):
+        print(path[i + 1])
+        print(f[i])
+        print("\n")
+
+def Astar(city):
+    AstarUtil(city, 0)
+    printPath(city)
+    
+    
