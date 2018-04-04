@@ -3,6 +3,7 @@ stateAwal = [[1,2,3],[0,4,6],[7,5,8]]
 stateGoal = [[1,2,3],[4,5,6],[7,8,0]]
 Dummy = dc(stateAwal)
 hURDL = [100,100,100,100]
+Counter = 1
 
 def Heurist(array):
     heuristic = 0
@@ -58,10 +59,13 @@ def swap0R(array):
 def Astar(Minimal):
     if Minimal == 0:
         return 0
+    global Counter
     Z = wherenum(Dummy,0)
     X = Z[0]
     Y = Z[1]
-    print(X,Y)
+    print("Step ke",Counter)
+    Counter = Counter + 1
+    print("Num0: [",X,"][",Y,"]")
     if X - 1 != -1:
         swap0U(Dummy)
         hURDL[0] = Heurist(Dummy)
@@ -78,20 +82,20 @@ def Astar(Minimal):
         swap0L(Dummy)
         hURDL[3] = Heurist(Dummy)
         swap0R(Dummy)
-    Temp = min(hURDL)
-    Minimal = Temp
-    for I in range(3):
-        if hURDL[I] == Temp:
-            Pos = I
-            break
-    if Pos == 1:
+    Minimal = min(hURDL)
+    Pos = hURDL.index(Minimal)
+    if Pos == 0:
         swap0U(Dummy)
-    elif Pos == 2:
+        print("Atas\n")
+    elif Pos == 1:
         swap0R(Dummy)
-    elif Pos == 3:
+        print("Kanan\n")
+    elif Pos == 2:
         swap0D(Dummy)
-    else:
+        print("Bawah\n")
+    elif Pos == 3:
         swap0L(Dummy)
+        print("Kiri\n")
     Astar(Minimal)
 
 def Main():
