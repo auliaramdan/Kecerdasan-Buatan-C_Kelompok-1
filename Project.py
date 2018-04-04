@@ -1,5 +1,6 @@
 stateAwal = [[1,2,3], [4, 5, 0], [7,8,6]]
 stateGoal = [[1,2,3], [4, 5, 6], [7,8,0]]
+Current = [[1,2,3],[4,0,5],[6,7,8]]
 
 def startHeu(array):
     heuristic = 0
@@ -13,9 +14,41 @@ def startHeu(array):
                 heuristic += (abs(i - l) + abs(j - k))
     return heuristic
                 
-def wherenum(state,num):
+def wherenum(array,num):
     for i in range(3):
-        if num in state[i]:
+        if num in array[i]:
             break
-    position = [i,state[i].index(num)]
+    position = [i,array[i].index(num)]
     return position
+
+def swap0U(array):
+    Z = wherenum(array,0)
+    X = Z[0]
+    Y = Z[1]
+    array[X][Y] = array[X-1][Y]
+    array[X-1][Y] = 0
+    return array
+
+def swap0D(array):
+    Z = wherenum(array,0)
+    X = Z[0]
+    Y = Z[1]
+    array[X][Y] = array[X+1][Y]
+    array[X+1][Y] = 0
+    return array
+
+def swap0L(array):
+    Z = wherenum(array,0)
+    X = Z[0]
+    Y = Z[1]
+    array[X][Y] = array[X][Y-1]
+    array[X][Y-1] = 0
+    return array
+
+def swap0R(array):
+    Z = wherenum(array,0)
+    X = Z[0]
+    Y = Z[1]
+    array[X][Y] = array[X][Y+1]
+    array[X][Y+1] = 0
+    return array
