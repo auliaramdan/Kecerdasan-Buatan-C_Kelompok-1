@@ -1,13 +1,7 @@
-from copy import deepcopy as dc
-
 stateAwal = [[1,2,3], [4, 5, 0], [7,8,6]]
 stateGoal = [[1,2,3], [4, 5, 6], [7,8,0]]
-position = [-1, -1]
-gN = dc(stateAwal)
-f = 1
-h = [0, 0, 0, 0]
 
-def Heurist(array):
+def startHeu(array):
     heuristic = 0
     for i in range(3):
         for j in range(3):
@@ -22,43 +16,6 @@ def Heurist(array):
 def wherenum(state,num):
     for i in range(3):
         if num in state[i]:
-            break 
-    global position
+            break
     position = [i,state[i].index(num)]
-    
-def swap(j, i, array):
-    temp = array[i][j]
-    array[i][j] = 0
-    #position
-    array[position[0]][position[1]] = temp
-    return array
-    
-def astar(g,  heuristic):
-    global h
-    if (g + heuristic) > f:
-        return
-    if position[0] + 1 < 3:
-        temp = dc(gN)
-        temp = swap(position[0] + 1, position[1], temp)
-        h[0] = startHeu(temp)
-        print("Kanan {}{}".format(h, temp))
-        temp = 0
-    if position[1] - 1 < 3:
-        temp = dc(gN)
-        print('{} {}'.format(position[0], position[1] -1))
-        temp = swap(position[0], position[1] - 1, temp)
-        h[1] = startHeu(temp)
-        print("Atas {}{}".format(h, temp))
-        temp = 0
-    if position[0] - 1 < 3:
-        temp = dc(gN)
-        temp = swap(position[0] - 1, position[1], temp)
-        h[2] = startHeu(temp)
-        print("Kiri {}{}".format(h, temp))
-        temp = 0
-    if position[1] + 1 < 3:
-        temp = dc(gN)
-        temp = swap(position[0], position[1] + 1, temp)
-        h[3] = startHeu(temp)
-        print("Bawah {}{}".format(h, temp))
-        temp = 0
+    return position
