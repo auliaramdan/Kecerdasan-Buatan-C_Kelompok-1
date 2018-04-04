@@ -3,7 +3,6 @@ stateAwal = [[1,2,3],[0,4,6],[7,5,8]]
 stateGoal = [[1,2,3],[4,5,6],[7,8,0]]
 Dummy = dc(stateAwal)
 hURDL = [100,100,100,100]
-Minimal = 100
 
 def Heurist(array):
     heuristic = 0
@@ -56,13 +55,13 @@ def swap0R(array):
     array[X][Y+1] = 0
     return array
 
-def Astar(array):
-    global Minimal
+def Astar(Minimal):
     if Minimal == 0:
         return 0
     Z = wherenum(Dummy,0)
     X = Z[0]
     Y = Z[1]
+    print(X,Y)
     if X - 1 != -1:
         swap0U(Dummy)
         hURDL[0] = Heurist(Dummy)
@@ -75,7 +74,7 @@ def Astar(array):
         swap0D(Dummy)
         hURDL[2] = Heurist(Dummy)
         swap0U(Dummy)
-    if X - 1 != -1:
+    if Y - 1 != -1:
         swap0L(Dummy)
         hURDL[3] = Heurist(Dummy)
         swap0R(Dummy)
@@ -93,7 +92,7 @@ def Astar(array):
         swap0D(Dummy)
     else:
         swap0L(Dummy)
-    Astar(Dummy)
+    Astar(Minimal)
 
 def Main():
-    Astar(Dummy)
+    Astar(100)
