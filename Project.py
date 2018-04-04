@@ -1,8 +1,11 @@
-stateAwal = [[1,2,3], [4, 5, 0], [7,8,6]]
-stateGoal = [[1,2,3], [4, 5, 6], [7,8,0]]
-Current = [[1,2,3],[4,0,5],[6,7,8]]
+from copy import deepcopy as dc
+stateAwal = [[1,2,3],[0,4,6],[7,5,8]]
+stateGoal = [[1,2,3],[4,5,6],[7,8,0]]
+Dummy = dc(stateAwal)
+hURDL = [100,100,100,100]
+Minimal = 100
 
-def startHeu(array):
+def Heurist(array):
     heuristic = 0
     for i in range(3):
         for j in range(3):
@@ -52,3 +55,45 @@ def swap0R(array):
     array[X][Y] = array[X][Y+1]
     array[X][Y+1] = 0
     return array
+
+def Astar(array):
+    global Minimal
+    if Minimal == 0:
+        return 0
+    Z = wherenum(Dummy,0)
+    X = Z[0]
+    Y = Z[1]
+    if X - 1 != -1:
+        swap0U(Dummy)
+        hURDL[0] = Heurist(Dummy)
+        swap0D(Dummy)
+    if Y + 1 != 3:
+        swap0R(Dummy)
+        hURDL[1] = Heurist(Dummy)
+        swap0L(Dummy)
+    if X + 1 != 3:
+        swap0D(Dummy)
+        hURDL[2] = Heurist(Dummy)
+        swap0U(Dummy)
+    if X - 1 != -1:
+        swap0L(Dummy)
+        hURDL[3] = Heurist(Dummy)
+        swap0R(Dummy)
+    Temp = min(hURDL)
+    Minimal = Temp
+    for I in range(3):
+        if hURDL[I] == Temp:
+            Pos = I
+            break
+    if Pos == 1:
+        swap0U(Dummy)
+    elif Pos == 2:
+        swap0R(Dummy)
+    elif Pos == 3:
+        swap0D(Dummy)
+    else:
+        swap0L(Dummy)
+    Astar(Dummy)
+
+def Main():
+    Astar(Dummy)
