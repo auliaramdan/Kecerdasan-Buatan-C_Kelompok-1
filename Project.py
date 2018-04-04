@@ -1,5 +1,5 @@
 from copy import deepcopy as dc
-stateAwal = [[1,2,3],[0,4,6],[7,5,8]]
+stateAwal = [[1,2,5],[3,0,6],[7,4,8]]
 stateGoal = [[1,2,3],[4,5,6],[7,8,0]]
 Dummy = dc(stateAwal)
 hURDL = [100,100,100,100]
@@ -70,18 +70,26 @@ def Astar(Minimal):
         swap0U(Dummy)
         hURDL[0] = Heurist(Dummy)
         swap0D(Dummy)
+    else:
+        hURDL[0] = 100
     if Y + 1 != 3:
         swap0R(Dummy)
         hURDL[1] = Heurist(Dummy)
         swap0L(Dummy)
+    else:
+        hURDL[1] = 100
     if X + 1 != 3:
         swap0D(Dummy)
         hURDL[2] = Heurist(Dummy)
         swap0U(Dummy)
+    else:
+        hURDL[2] = 100
     if Y - 1 != -1:
         swap0L(Dummy)
         hURDL[3] = Heurist(Dummy)
         swap0R(Dummy)
+    else:
+        hURDL[3] = 100
     Minimal = min(hURDL)
     Pos = hURDL.index(Minimal)
     if Pos == 0:
