@@ -6,13 +6,8 @@ position = [-1, -1]
 gN = dc(stateAwal)
 f = 1
 h = [0, 0, 0, 0]
-#def startHeu():
-#    for i in stateGoal:
-#        for j in stateGoal[i]:
-#            if stateAwal[i][j] != stateGoal[i][j]:
-#                heuristic += 1
 
-def startHeu(array):
+def Heurist(array):
     heuristic = 0
     for i in range(3):
         for j in range(3):
@@ -24,12 +19,12 @@ def startHeu(array):
                 heuristic += (abs(i - l) + abs(j - k))
     return heuristic
                 
-def where0():
+def wherenum(state,num):
     for i in range(3):
-        if 0 in stateAwal[i]:
+        if num in state[i]:
             break 
     global position
-    position = [stateAwal[i].index(0), i]
+    position = [i,state[i].index(num)]
     
 def swap(j, i, array):
     temp = array[i][j]
