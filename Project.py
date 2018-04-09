@@ -83,8 +83,11 @@ def swap0R(array):
     return array
 
 def Start():
+    print("\n----- ----- -----")
     print("\nState Awal:")
     PrintState(StateAwal)
+    Z = Heurist(Dummy)
+    print("Heuristic =",Z)
 
 def Astar(Minimal):
     if Minimal == 0:
@@ -145,7 +148,7 @@ def Main():
     StartTime = time.time()
     Interface()
     Start()
-    Astar(100)
+    Astar(BlockPath)
     EndTime = time.time()
     Z = EndTime - StartTime
     print("Program runtime =",Z)
